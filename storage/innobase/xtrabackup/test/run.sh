@@ -602,6 +602,8 @@ function reap_worker()
        FAILED_COUNT=$((FAILED_COUNT + 1))
        FAILED_TESTS="$FAILED_TESTS $tname"
 
+       cat ${worker_outfiles[$worker]}
+
        # Return 0 on failed tests in the -f mode
        if [ -z "$force" ]
        then
@@ -825,7 +827,7 @@ mkdir results
 cleanup_all_workers >>$OUTFILE 2>&1
 
 echo "Using $TEST_VAR_ROOT as test root"
-rm -rf $TEST_VAR_ROOT test_results.subunit
+rm -rf $TEST_VAR_ROOT/* test_results.subunit
 mkdir -p $TEST_VAR_ROOT
 
 echo "Detecting server version..." | tee -a $OUTFILE

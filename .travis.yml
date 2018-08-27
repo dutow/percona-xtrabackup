@@ -97,3 +97,11 @@ script:
   - make -j2 || travis_terminate 1
   - ccache --show-stats;
 
+
+  - cd storage/innobase/xtrabackup/test &&
+    cp -av ../../../../../storage/innobase/xtrabackup/test/* . &&
+    wget https://downloads.mysql.com/archives/get/file/mysql-8.0.11-linux-glibc2.12-x86_64.tar.gz &&
+    ./bootstrap.sh mysql-8.0.11-linux-glibc2.12-x86_64.tar.gz &&
+    mkdir `pwd`/var &&
+    sudo mount -t tmpfs -o size=5G tmpfs `pwd`/var &&
+    ./run.sh -f -j 2
